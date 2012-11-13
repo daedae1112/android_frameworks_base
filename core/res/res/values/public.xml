@@ -3937,8 +3937,13 @@
   <!-- HW rotation lock -->
   <java-symbol type="string" name="toast_rotation_unlocked" />
   <java-symbol type="string" name="toast_rotation_locked" />
-  
+
   <!-- Vendor services -->
   <java-symbol type="array" name="config_vendorServices" />
 
+  <!-- IME Picker showing upon pressing Sym Key -->
+  <java-symbol type="bool" name="config_symKeyShowsImePicker" />
+
+  <!-- Stylus gestures -->
+  <java-symbol type="bool" name="config_stylusGestures" />
 </resources>
