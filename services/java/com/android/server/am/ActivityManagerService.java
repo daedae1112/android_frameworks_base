@@ -280,9 +280,6 @@ public final class ActivityManagerService extends ActivityManagerNative
     
     static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    static final boolean GMAPS_HACK = SystemProperties.get("persist.sys.gmaps_hack").equals("1");
-    static final String GMAPS_NLS = "com.google.android.apps.maps/com.google.android.location.internal.server.GoogleLocationService";
-
     public ActivityStack mMainStack;
 
     private final boolean mHeadless;
@@ -11525,13 +11522,6 @@ public final class ActivityManagerService extends ActivityManagerNative
         //Slog.i(TAG, "Bring up service:");
         //r.dump("  ");
 
-        if (GMAPS_HACK && r.shortName.equals(GMAPS_NLS)
-               && getProcessRecordLocked("com.google.android.apps.maps",
-               r.appInfo.uid) == null) {
-            // Slog.i(TAG, "Not starting Gmaps GoogleLocationService, Gmaps are not running!");
-           return true;
-        }
-
         if (r.app != null && r.app.thread != null) {
             sendServiceArgsLocked(r, false);
             return true;
@@ -12399,12 +12389,7 @@ public final class ActivityManagerService extends ActivityManagerNative
                             // We are done with the associated start arguments.
                             r.findDeliveredStart(startId, true);
                             // Don't stop if killed.
-                            if (GMAPS_HACK && r.shortName.equals(GMAPS_NLS)) {
-                                // Slog.i(TAG, "Stop Gmaps GoogleLocationService if killed.");
-                                r.stopIfKilled = true;
-                            } else {
-                                r.stopIfKilled = false;
-                            }
+                            r.stopIfKilled = false;
                             break;
                         }
                         case Service.START_NOT_STICKY: {
@@ -14068,15 +14053,6 @@ public final class ActivityManagerService extends ActivityManagerNative
                     // Don't kill this process because it is doing work; it
                     // has said it is doing work.
                     app.keeping = true;
-                    if (GMAPS_HACK && s.shortName.equals(GMAPS_NLS)
-                            && getProcessRecordLocked("com.google.android.apps.maps",
-                            s.appInfo.uid) == null) {
-                        // Slog.i(TAG, "Let the Gmaps GoogleLocationService die! Gmaps are not running!");
-                        app.keeping = false;
-                        adj = hiddenAdj;
-                        app.hidden = true;
-                        app.adjType = "bg-services";
-                   }
                 }
                 if (s.connections.size() > 0 && (adj > ProcessList.FOREGROUND_APP_ADJ
                         || schedGroup == Process.THREAD_GROUP_BG_NONINTERACTIVE)) {
