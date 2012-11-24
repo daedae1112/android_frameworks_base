@@ -1048,4 +1048,9 @@
     <!-- Setting to false will disable CM's IME switcher implementation for tablets -->
     <bool name="config_show_cmIMESwitcher">true</bool>
 
+    <!-- CM CHANGES START HERE -->
+
+    <!-- Use legacy USB device manager. -->
+    <bool name="config_usesLegacyUsbDeviceManager">false</bool>
+
 </resources>
