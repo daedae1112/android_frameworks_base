@@ -1074,4 +1074,9 @@
          the GPU to handle. -->
     <integer name="config_wallpaperMaxWidth">-1</integer>
 
+    <!-- CM CHANGES START HERE -->
+
+    <!-- Use legacy USB device manager. -->
+    <bool name="config_usesLegacyUsbDeviceManager">false</bool>
+
 </resources>
