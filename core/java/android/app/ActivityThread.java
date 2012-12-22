@@ -4282,7 +4282,6 @@ public final class ActivityThread {
         } catch (RemoteException e) {
             // Ignore
         }
-<<<<<<< HEAD
     }
 
     private void updateDefaultDensity() {
@@ -4295,39 +4294,6 @@ public final class ActivityThread {
             DisplayMetrics.DENSITY_DEVICE = mCurDefaultDisplayDpi;
             Bitmap.setDefaultDensity(DisplayMetrics.DENSITY_DEFAULT);
         }
-=======
-    }    
-
-/**
-* hwui.use.blacklist allows to disable the hardware acceleration
-* to specified applications processes, if files (process names)
-* are present in /data/local/hwui.deny/
-*/
-    private boolean hwuiForbidden(String processName) {
-
-        boolean useBL = SystemProperties.getBoolean("hwui.use.blacklist", false);
-
-        // Default is allowed
-        boolean blacklisted = false;
-
-        if (!useBL || TextUtils.isEmpty(processName))
-            return blacklisted;
-
-        File hwuiConfig = new File("/data/local/hwui.deny/" + processName);
-        if (hwuiConfig.exists()) {
-            blacklisted = true;
-        }
-
-        hwuiConfig = null;
-
-        // Keep the logs to show process names with "adb logcat | grep listed"
-        if (!blacklisted)
-            Slog.v(TAG, processName + " white listed for hwui");
-        else
-            Slog.d(TAG, processName + " black listed for hwui");
-
-        return blacklisted;
->>>>>>> 0fad900... hwui: Allow to blacklist android applications
     }
 
     private void handleBindApplication(AppBindData data) {
@@ -4354,10 +4320,6 @@ public final class ActivityThread {
             }
         }
         
-        if (hwuiForbidden(data.processName)) {
-            HardwareRenderer.disable(false);
-        }
-
         if (mProfiler.profileFd != null) {
             mProfiler.startProfiling();
         }
