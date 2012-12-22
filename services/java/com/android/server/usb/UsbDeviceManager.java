@@ -147,15 +147,19 @@ public class UsbDeviceManager {
         }
     };
 
+<<<<<<< HEAD
+    public UsbDeviceManager(Context context) {
+=======
     // Dummy constructor to use when extending class
     public UsbDeviceManager() {
         mContext = null;
         mContentResolver = null;
-        mCurrentSettings = null;
+        mSettingsManager = null;
         mHasUsbAccessory = false;
     }
 
-    public UsbDeviceManager(Context context) {
+    public UsbDeviceManager(Context context, UsbSettingsManager settingsManager) {
+>>>>>>> 1578863... LegacyUSB: Add support for legacy USB implementations
         mContext = context;
         mContentResolver = context.getContentResolver();
         PackageManager pm = mContext.getPackageManager();
